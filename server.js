@@ -9,10 +9,12 @@ app.listen(3000, function() {
 	console.log('listening on 3000')
 })
 
+
 //crud handlers
 
 MongoClient.connect(url, {
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+		
 } , function(err, database) {
         if(err) {
                 console.error("MongoDB 연결 실패", err);
@@ -26,6 +28,7 @@ MongoClient.connect(url, {
 
 		// body-parser
 		app.use(bodyParser.urlencoded({ extended: true }));
+
 		app.post('/quotes', (req, res) => {
 			quotesCollection.insertOne(req.body)
 			.then(result => {
@@ -33,6 +36,7 @@ MongoClient.connect(url, {
 			})
 			.catch(error => console.error(error))
 		});
+		
 
 		// sendFile method를 통해 index.html파일로 연결하자
 		app.get('/', (req, res) => {
@@ -44,6 +48,8 @@ MongoClient.connect(url, {
 			.catch(error => console.error(error))
 
 		})
+
+		
 });
 
 
